@@ -127,12 +127,28 @@ var foo = copper.compose({
         // Optional constructor
     }
 })
-// Just create
-var bar = copper.create({
-    // definition MINUS the name
-})
-var baz = copper.create(name)
+// Composition without a name means that
+// the composed object is not registered
+// as an assembly
+var composition = {
+    mixins: [{
+        hello: function() {
+            return 'Hello World'
+        }
+    }]
+}
+// Just create using #compose
+var bar = copper.compose(composition) // definition MINUS the name
+// or you can use #create
+bar = copper.create(composition)
+
+// Get an instance of a registered assembly
+var baz = copper.create('name.of.registered.assembly')
+
+// Mixin your objects on the fly
 copper.mixin(baz, mixin1, mixin2)
+
+// Add advices on the fly
 copper.before(adviceFunction, baz, 'methodName')
 copper.after(adviceFunction, baz, 'methodName')
 copper.around(adviceFunction, baz, 'methodName')

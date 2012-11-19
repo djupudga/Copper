@@ -183,12 +183,13 @@
     }
 
     function create(name) {
+        if (typeof name === 'object') return compose.apply(this, arguments)
         if (assemblies.hasOwnProperty(name)) {
             var args = toArray(arguments)
             if (args.length > 1) args.shift()
             return assemblies[name](args)
         }
-        else throw new Error('No assembly registered for name: ' + name)
+        throw new Error('No assembly registered for name: ' + name)
     }
 
     // Export API
