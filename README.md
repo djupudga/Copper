@@ -8,7 +8,7 @@ from other objects or types.
 
 In traditional class based languages such as Java you would do
 something like this:
-´´´java
+```java
 public class Person {
     private String name;
     public Person(String name) {
@@ -35,12 +35,12 @@ p.sayName(); // "My name is John"
 Employee emp = new Person("George", 123);
 emp.sayName(); // My name is George
 emp.sayNumber(); // My number is 123
+```
 
-´´´
 Whereas in a Composite Oriented Programming system, such as Copper
 you would do this:
 
-´´´javascript
+```javascript
 var personBehaviour = {
     sayName: function() {
         console.log('My name is ' + this.name)
@@ -76,7 +76,7 @@ person.sayName()    // My name is John
 var emp = copper.create('Employee', 'George', 123)
 emp.sayName()       // My name is George
 emp.sayNumber()      // My number is 123
-´´´
+```
 
 Instead of defining a type (a class), you define the behaviour and then
 compose your objects using these behaviours.
