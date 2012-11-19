@@ -127,6 +127,7 @@
     // via copper.create(namespace)
     function compose(composition) {
         var obj = {}
+          , args
 
         if (composition.mixins !== undefined) {
             mixin(obj, composition.mixins)
@@ -174,7 +175,11 @@
             assemblies[composition.name] = _create
         }
         // TODO: forward extra args to _create
-        return _create()
+        if (arguments.length > 1) {
+            args = toArray(arguments)
+            args.shift()
+        }
+        return _create.call(this, args)
     }
 
     function create(name) {
