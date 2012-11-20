@@ -1,3 +1,13 @@
+// Copper
+//
+// A JavaScript implementation of Composite Oriented Programming.
+// See http://en.wikipedia.org/wiki/Composition_over_inheritance
+// for more information on this principle.
+//
+// Licensed under the Apache V2 license.
+//
+// Copyright 2012, Helgi Kristjansson
+//
 (function(context, undefined) {
     // A registry that contains all compositions
     // registered by name.
@@ -104,14 +114,20 @@
         }
     }
 
+    function arrayOfArgs(args) {
+        var ret
+        if (args.length < 2) return []
+        if (isArray(args[1])) ret = args[1]
+        else {
+            ret = toArray(args)
+            ret.shift()
+        }
+        return ret
+    }
+
     // Mixin arguments to target.
     function mixin(target) {
-        var mixins
-        if (isArray(arguments[1])) mixins = arguments[1]
-        else {
-            mixins = toArray(arguments)
-            mixins.shift()
-        }
+        var mixins = arrayOfArgs(arguments)
         for (var i = 0, len = mixins.length, mix; i < len; i++) {
             mix = mixins[i]
             for (var j in mix) {
@@ -131,6 +147,9 @@
 
         if (composition.mixins !== undefined) {
             mixin(obj, composition.mixins)
+        }
+        if (composition.exclude !== undefined) {
+            exclude(obj, composition.exclude)
         }
         var aspects = {
               before: before
